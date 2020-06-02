@@ -1,4 +1,4 @@
-import React, { createContext } from 'react';
+import React, { createContext, useCallback } from 'react';
 import { usePokemonReducer } from './usePokemonReducer';
 import { CAPTURE, RELEASE, ADD_POKEMON, ADD_POKEMONS } from './actions';
 
@@ -11,7 +11,7 @@ const PokemonProvider = (props) => {
   const capture = (pokemon) => () => dispatch({ type: CAPTURE, pokemon });
   const release = (pokemon) => () => dispatch({ type: RELEASE, pokemon });
   const addPokemon = (pokemon) => dispatch({ type: ADD_POKEMON, pokemon });
-  const addPokemons = (pokemons) => dispatch({ type: ADD_POKEMONS, pokemons });
+  const addPokemons = useCallback( pokemons => dispatch({ type: ADD_POKEMONS, pokemons }), [dispatch] );
 
   const providerValue = {
     pokemons,
